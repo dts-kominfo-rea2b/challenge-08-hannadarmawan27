@@ -1,41 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="background-color: rgb(245, 235, 236);">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Challenge - DOM</title>
+    <link rel='stylesheet' href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap">
   </head>
-  <body>
+
+
+  <body
+    style="
+      font-family: 'Poppins', sans-serif;
+      margin: auto;
+      width : 50%;
+      height: 600px;
+      background-color: #fff;
+      border-radius: 10px;
+      text-align: center;
+    "
+  >
     <div id="app">
       <!-- TODO: Buatlah sebuah header dengan id todo-title -->
+      <h1 id="todo-title" style="padding-top: 30px;">Hi, Hanna !</h1>
+
       <!-- TODO: Buatlah sebuah subtitle dengan id todo-subtitle -->
+      <p id="todo-subtitle">Today's Task(s):</p>
 
       <!-- Section: input -->
       <!-- TODO: Buatlah sebuah input bertipe text dengan id todo-input -->
+      <input type="text" id="todo-input" placeholder="Input your task here.." style="font-family:'Poppins'" />
       <!-- TODO: Buatlah sebuah button dengan id todo-submit -->
+      <button id="todo-submit" style="font-family:'Poppins'">Add Task</button>
 
       <!-- Section output -->
       <!-- TODO: Buatlah sebuah <ul> dengan id todo-output -->
+      <ul id="todo-output" style="text-align:left; margin-left:30%"></ul>
     </div>
 
     <!-- ! Untuk tantangan ini, script jangan diubah ke external js yah ! -->
     <script>
       // TODO: Deklarasi variable sesuai dengan kebutuhan di sini
-      let button;
-      let input;
-      let output;
+      let button = document.querySelector("#todo-submit");
+      let input = document.querySelector("#todo-input");
+      let output = document.querySelector("#todo-output");
 
       // TODO: Buatlah sebuah fungsi dengan nama fnClickHandler
       // Fungsi yang digunakan untuk menambahkan tulisan
       // Jangan ubah cara deklarasi fungsinya, cukup isi saja
-      function fnClickHandler(toDoItem) {}
+      function fnClickHandler(toDoItem) {
+        let li = document.createElement("li");
+        li.textContent = toDoItem;
+        li.className = "task";
+        return li;
+      }
 
       // TODO: register event onclick / addEventListener untuk button
       // akan menjalankan fungsi fnClickHandler
-      
+      button.addEventListener("click", () => {
+        const dataTask = [];
+        const isi = input.value;
+        dataTask.push(isi);
+
+        const listTask = dataTask.map((item) => {
+          return fnClickHandler(item);
+        });
+        output.append(...listTask);
+      });
+
       // TODO: register event onkeypress / addEventListener untuk input
       // sehingga saat di input ditekan enter akan menjalankan fungsi fnClickHandler juga
+      input.addEventListener("keypress", (event) => {
+        if (event.key === "Enter") {
+          const dataTask = [];
+          const isi = input.value;
+          dataTask.push(isi);
+
+          const listTask = dataTask.map((item) => {
+            return fnClickHandler(item);
+          });
+          output.append(...listTask);
+        }
+      });
     </script>
   </body>
 </html>
